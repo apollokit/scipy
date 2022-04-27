@@ -1,0 +1,8 @@
+export LDFLAGS="-L/usr/local/opt/lapack/lib"
+export CPPFLAGS="-I/usr/local/opt/lapack/include"
+export PKG_CONFIG_PATH="/usr/local/opt/lapack/lib/pkgconfig"
+
+export CFLAGS=-Wno-error=implicit-function-declaration3
+
+export LAPACK=/usr/local/opt/lapack/lib/liblapack.dylib
+export BLAS=/usr/local/opt/openblas/lib/libopenblasp-r0.3.20.dylib
