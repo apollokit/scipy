@@ -357,6 +357,7 @@ C   disallow termination with convergence on this iteration,
 C   even if the augmented problem was solved.
 
       badlin = .false.
+      ! here
       IF (mode.EQ.6) THEN
           IF (n.EQ.meq) THEN
               mode = 4
@@ -856,6 +857,11 @@ C     20.3.1987, DIETER KRAFT, DFVLR OBERPFAFFENHOFEN
       ig=IF+me
 
 C  TRIANGULARIZE C AND APPLY FACTORS TO E AND G
+      ! print C before triangulation
+      DO 16 iii=1,mc
+            print *, 'Line', iii
+            print *, c(iii,:)
+16    CONTINUE
 
       DO 10 i=1,mc
           j=MIN(i+1,lc)
@@ -865,9 +871,19 @@ C  TRIANGULARIZE C AND APPLY FACTORS TO E AND G
 
 C  SOLVE C*X=D AND MODIFY F
 
+      ! here mode 6
       mode=6
+      ! print the C matrix after triangularization
+      ! mc is meq
       DO 15 i=1,mc
-          IF(ABS(c(i,i)).LT.epmach)    GOTO 75
+            IF(ABS(c(i,i)).LT.epmach) THEN
+!                   DO 16 iii=1,mc
+!                         print *, 'Line', iii
+!                         print *, c(iii,:)
+!    16             CONTINUE
+                  print *, 'The breaking i value is', i
+            ENDIF
+            IF(ABS(c(i,i)).LT.epmach)    GOTO 75
           x(i)=(d(i)-ddot_sl(i-1,c(i,1),lc,x,1))/c(i,i)
    15 CONTINUE
       mode=1
